@@ -373,12 +373,13 @@ $('#ckb').onclick=()=>$('#ckd').classList.toggle('open');
 $('#vsb').onclick=()=>{$('#vsm').style.display='block';toast('Ini adalah versi aman. Jika upgrade berikutnya merusak MPI, kembali ke versi ini dan jangan tambah fitur baru sebelum diperbaiki.')};
 (function(){const d=document.querySelectorAll('.srcm'),i=$('#srci');let v='';try{v=localStorage.getItem('jsrc')||''}catch(e){}const ap=t=>d.forEach(e=>e.textContent=t);if(v){ap(v);i.value=v}else i.value=d[0].textContent;i.oninput=()=>{const t=i.value.trim()||'Diisi oleh guru - mohon cek berita resmi Pemkot Pekalongan sebelum dipakai untuk penilaian.';ap(t);try{localStorage.setItem('jsrc',i.value.trim())}catch(e){}}})();
 
-async function dl(){const nm='jejak-sang-pahlawan-v4-1-aman.html',bl=new Blob([SRC0],{type:'text/html'});let d=null;try{d=window.claude&&await claude.use('downloads')}catch(e){}
+async function dl(){const nm='jejak-sang-pahlawan-v4-1-aman.html',bl=new Blob([SRCO()],{type:'text/html'});let d=null;try{d=window.claude&&await claude.use('downloads')}catch(e){}
 if(d){try{await d.save({filename:nm,data:bl});toast('Setujui kotak konfirmasi untuk menyimpan file.');return}catch(e){if(e&&e.code=='declined'){toast('Unduhan dibatalkan.');return}}}
 try{const u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download=nm;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast('Jika file tidak muncul, pakai cara manual di bawah tombol.')}catch(e){toast('Unduh gagal. Pakai cara manual di bawah tombol.')}}
-$('#dlb').onclick=dl;$('#cpb2').onclick=()=>cp(SRC0,'Semua kode MPI tersalin.');
-const LK0='https://claude.ai/artifact/8bMndEmknG6zABvDSwKu3j';let LK=LK0;try{LK=localStorage.getItem('jsq')||LK0}catch(e){}
+$('#dlb').onclick=dl;$('#cpb2').onclick=()=>cp(SRCO(),'Semua kode MPI tersalin.');
+const LK0='https://rskhrmwn.github.io/mpi-ipas-bab3-karindian2/';let LK=LK0;try{const q=(localStorage.getItem('jsq')||'').split('|');if(q[0]==LK0&&q[1])LK=q.slice(1).join('|')}catch(e){}
+function SRCO(){const sf=t=>ES(t).replace(/'/g,'&#39;').replace(/\\/g,'&#92;');return SRC0.replace(/const LK0='[^']*'/,()=>"const LK0='"+LK.replace(/'/g,'%27').replace(/\\/g,'%5C')+"'").replace(/(<span class="srcm">)[^<]*(<\/span>)/g,(m,a,b)=>a+sf(document.querySelector('.srcm').textContent)+b)}
 function qrr(){$('#qt').textContent=LK;const e=$('#qr');e.innerHTML='';try{new QRCode(e,{text:LK,width:160,height:160})}catch(x){e.textContent='QR butuh internet untuk dibuat. Link di bawah tetap bisa disalin.'}}
-$('#qc').onclick=()=>cp(LK,'Link MPI tersalin.');$('#qb').onclick=()=>{const v=$('#qn').value.trim();if(!/^https?:\/\/\S+$/i.test(v)){toast('Tempel link lengkap yang diawali https://');return}LK=v;try{localStorage.setItem('jsq',v)}catch(e){}qrr();$('#qn').value='';toast('Link dan QR diperbarui.')};qrr();
+$('#qc').onclick=()=>cp(LK,'Link MPI tersalin.');$('#qb').onclick=()=>{const v=$('#qn').value.trim();if(!/^https?:\/\/\S+$/i.test(v)){toast('Tempel link lengkap yang diawali https://');return}LK=v;try{localStorage.setItem('jsq',LK0+'|'+v)}catch(e){}qrr();$('#qn').value='';toast('Link dan QR diperbarui.')};qrr();
 go(0);
 </script></body></html>
